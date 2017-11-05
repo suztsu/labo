@@ -1,3 +1,5 @@
+#!/usr/bin/lua
+
 local GPIO=require "GPIO"
 
 GPIO.setmode(GPIO.BOARD)
