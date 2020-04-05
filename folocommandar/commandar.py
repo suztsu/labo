@@ -9,16 +9,16 @@ host = 'localhost'
 port = 10500
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
-uuid_led_service = "E95DD91D-251D-470A-A062-FA1922DFA9A8"
-uuid_led_text = "e95d93ee-251d-470a-a062-fa1922dfa9a8"
+# uuid_led_service = "E95DD91D-251D-470A-A062-FA1922DFA9A8"
+# uuid_led_text = "e95d93ee-251d-470a-a062-fa1922dfa9a8"
 uuid_uart_service ="6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 uuid_uart_rx = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 device_addr = "d5:8a:b3:87:c2:22"
 per = btle.Peripheral(device_addr, btle.ADDR_TYPE_RANDOM)
-ledsvc = per.getServiceByUUID(uuid_led_service)
-ledsvcchar = ledsvc.getCharacteristics(uuid_led_text)[0]
+# ledsvc = per.getServiceByUUID(uuid_led_service)
+# ledsvcchar = ledsvc.getCharacteristics(uuid_led_text)[0]
 uartsvc = per.getServiceByUUID(uuid_uart_service)
-uartrx = ledsvc.getCharacteristics(uuid_uart_rx)[0]
+uartrx = uartsvc.getCharacteristics(uuid_uart_rx)[0]
 
 # JuliusとのSocket接続を開く
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
