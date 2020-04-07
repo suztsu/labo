@@ -1,12 +1,12 @@
 import socket
 import string
 import time
+import subprocess
 import bluepy
 from bluepy import btle
 
-# JuliusとのSocket接続情報
-host = 'localhost'
-port = 10500
+res = subprocess.run(["julius", "-C", "~/julius/dict-kit/dictation-kit-4.5/command.jconf", "-module"])
+time.sleep(5)
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
 # uuid_led_service = "E95DD91D-251D-470A-A062-FA1922DFA9A8"
@@ -21,6 +21,8 @@ uartsvc = per.getServiceByUUID(uuid_uart_service)
 uartrx = uartsvc.getCharacteristics(uuid_uart_rx)[0]
 
 # JuliusとのSocket接続を開く
+host = 'localhost'
+port = 10500
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((host, port))
 
