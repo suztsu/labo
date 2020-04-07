@@ -5,7 +5,7 @@ import subprocess
 import bluepy
 from bluepy import btle
 
-res = subprocess.run(["julius", "-C", "~/julius/dict-kit/dictation-kit-4.5/command.jconf", "-module"], stdout=subprocess.PIPE, shell=true)
+res = subprocess.run(["julius", "-C", "~/julius/dict-kit/dictation-kit-4.5/command.jconf", "-module"], stdout=subprocess.PIPE, shell=True)
 time.sleep(5)
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
