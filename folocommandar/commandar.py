@@ -5,7 +5,8 @@ import subprocess
 import bluepy
 from bluepy import btle
 
-res = subprocess.run("sh ~/dev/labo/folocommandar/julius.sh", stdout=subprocess.PIPE, shell=True)
+p = subprocess.Popen("sh ~/dev/labo/folocommandar/julius.sh", stdout=subprocess.PIPE, shell=True)
+pid = str(p.stdout.read().decode('utf-8'))
 time.sleep(5)
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
@@ -26,6 +27,7 @@ port = 10500
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((host, port))
 
+try:
 recvdata = ""
 
 while True:
@@ -59,3 +61,7 @@ while True:
         uartrx.write(bytearray(command))
 
     recvdata = ""
+
+except KeyboardInterrupt:
+    p.kill()
+    sock.close()
