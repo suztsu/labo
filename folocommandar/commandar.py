@@ -5,7 +5,7 @@ import subprocess
 import bluepy
 from bluepy import btle
 
-p = subprocess.Popen("~/dev/labo/folocommandar/julius.sh",
+p = subprocess.Popen("./julius.sh",
                      stdout=subprocess.PIPE, shell=True)
 pid = str(p.pid)
 # pid = str(p.stdout.read().decode('utf-8'))
