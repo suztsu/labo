@@ -59,6 +59,7 @@ try:
 
         if command != "":
             # ledsvcchar.write(command.encode("utf-8"))
+            command += "#"
             uartrx.write(bytearray(command.encode("utf-8")))
 
         recvdata = ""
