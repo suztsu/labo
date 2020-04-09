@@ -5,9 +5,10 @@ import subprocess
 import bluepy
 from bluepy import btle
 
-p = subprocess.Popen("sh ~/dev/labo/folocommandar/julius.sh",
+p = subprocess.Popen("~/dev/labo/folocommandar/julius.sh",
                      stdout=subprocess.PIPE, shell=True)
-pid = str(p.stdout.read().decode('utf-8'))
+pid = str(p.pid)
+# pid = str(p.stdout.read().decode('utf-8'))
 time.sleep(5)
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
