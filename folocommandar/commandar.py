@@ -5,6 +5,7 @@ import subprocess
 import bluepy
 from bluepy import btle
 
+# サブプロセスでJuliusをmoduleモードで起動する
 p = subprocess.Popen("./julius.sh",
                      stdout=subprocess.PIPE, shell=True)
 pid = str(p.pid)
@@ -58,7 +59,7 @@ try:
 
         if command != "":
             # ledsvcchar.write(command.encode("utf-8"))
-            uartrx.write(bytearray(command))
+            uartrx.write(bytearray(command.encode("utf-8")))
 
         recvdata = ""
 
