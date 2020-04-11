@@ -10,7 +10,8 @@ p = subprocess.Popen("./julius.sh",
                      stdout=subprocess.PIPE, shell=True)
 pid = str(p.pid)
 # pid = str(p.stdout.read().decode('utf-8'))
-time.sleep(5)
+time.sleep(3)
+print("julius を起動しました")
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
 # uuid_led_service = "E95DD91D-251D-470A-A062-FA1922DFA9A8"
@@ -29,6 +30,7 @@ host = 'localhost'
 port = 10500
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((host, port))
+print("Juliusとのソケット接続を確立しました")
 
 try:
     recvdata = ""
@@ -60,6 +62,7 @@ try:
         if command != "":
             # ledsvcchar.write(command.encode("utf-8"))
             command += "#"
+            print(command)
             uartrx.write(bytearray(command.encode("utf-8")))
 
         recvdata = ""
