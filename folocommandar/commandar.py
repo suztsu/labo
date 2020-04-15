@@ -9,19 +9,14 @@ from bluepy import btle
 p = subprocess.Popen("./julius.sh",
                      stdout=subprocess.PIPE, shell=True)
 pid = str(p.pid)
-# pid = str(p.stdout.read().decode('utf-8'))
-time.sleep(3)
+time.sleep(1)
 print("julius を起動しました")
 
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
-# uuid_led_service = "E95DD91D-251D-470A-A062-FA1922DFA9A8"
-# uuid_led_text = "e95d93ee-251d-470a-a062-fa1922dfa9a8"
 uuid_uart_service = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 uuid_uart_rx = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 device_addr = "d5:8a:b3:87:c2:22"
 per = btle.Peripheral(device_addr, btle.ADDR_TYPE_RANDOM)
-# ledsvc = per.getServiceByUUID(uuid_led_service)
-# ledsvcchar = ledsvc.getCharacteristics(uuid_led_text)[0]
 uartsvc = per.getServiceByUUID(uuid_uart_service)
 uartrx = uartsvc.getCharacteristics(uuid_uart_rx)[0]
 
@@ -39,6 +34,7 @@ try:
         while (recvdata.find("\n.") == -1):
             recvdata = recvdata + sock.recv(1024).decode("utf-8")
 
+        # 受信データを解析し、認識した文字列を取り出す
         word = ""
         for line in recvdata.split('\n'):
             i = line.find('WORD="')
@@ -47,6 +43,7 @@ try:
                 if line != "[s]" and line != "[/s]":
                     word += line
 
+        # フォロへ送信するコマンド文字列に変換する
         command = ""
         if word == "とまれ":
             command = "S"
@@ -60,7 +57,7 @@ try:
             command = "L"
 
         if command != "":
-            # ledsvcchar.write(command.encode("utf-8"))
+            # フォロへコマンド文字列を送信する
             command += "#"
             print(command)
             uartrx.write(bytearray(command.encode("utf-8")))
