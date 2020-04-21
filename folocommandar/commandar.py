@@ -29,6 +29,15 @@ print("Juliusとのソケット接続を確立しました")
 
 try:
     recvdata = ""
+    commanddict = {
+        "とまれ": "ST",
+        "すすめ": "FW",
+        "もどれ": "BK",
+        "みぎ": "TR",
+        "ひだり": "TL",
+        "いそげ": "HL",
+        "おちつけ": "SL",
+    }
 
     while True:
         while (recvdata.find("\n.") == -1):
@@ -44,17 +53,23 @@ try:
                     word += line
 
         # フォロへ送信するコマンド文字列に変換する
-        command = ""
-        if word == "とまれ":
-            command = "S"
-        elif word == "すすめ":
-            command = "G"
-        elif word == "もどれ":
-            command = "B"
-        elif word == "みぎ":
-            command = "R"
-        elif word == "ひだり":
-            command = "L"
+        try:
+            command = commanddict[word]
+        except KeyError:
+            command = "?"
+        
+        # if word == "とまれ":
+        #     command = "S"
+        # elif word == "すすめ":
+        #     command = "G"
+        # elif word == "もどれ":
+        #     command = "B"
+        # elif word == "みぎ":
+        #     command = "R"
+        # elif word == "ひだり":
+        #     command = "L"
+        # elif word == "いそげ":
+        #     command = "H"
 
         if command != "":
             # フォロへコマンド文字列を送信する
