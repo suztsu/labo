@@ -28,7 +28,6 @@ sock.connect((host, port))
 print("Juliusとのソケット接続を確立しました")
 
 try:
-    recvdata = ""
     commanddict = {
         "とまれ": "ST",
         "すすめ": "FW",
@@ -40,6 +39,7 @@ try:
     }
 
     while True:
+        recvdata = ""
         while (recvdata.find("\n.") == -1):
             recvdata = recvdata + sock.recv(1024).decode("utf-8")
 
@@ -52,16 +52,18 @@ try:
                 if line != "[s]" and line != "[/s]":
                     word += line
 
+        # 有効な命令でなければ送信しない
+        if (word in commanddict) == False:
+            continue
+
         # フォロへ送信するコマンド文字列に変換する
-        try:
-            command = commanddict[word] += "#"
-            # フォロへコマンド文字列を送信する
-            print(command)
-            uartrx.write(bytearray(command.encode("utf-8")))
-        except KeyError:
+        command = commanddict[word] + "#"
+        print(command)
 
-        recvdata = ""
-
+        # フォロへコマンド文字列を送信する
+        uartrx.write(bytearray(command.encode("utf-8")))
+            
+        
 except KeyboardInterrupt:
     p.kill()
     sock.close()
