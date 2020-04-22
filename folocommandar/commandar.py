@@ -36,7 +36,7 @@ try:
         "みぎ": "TR",
         "ひだり": "TL",
         "いそげ": "HL",
-        "おちつけ": "SL",
+        "ゆっくり": "SL",
     }
 
     while True:
@@ -54,28 +54,11 @@ try:
 
         # フォロへ送信するコマンド文字列に変換する
         try:
-            command = commanddict[word]
-        except KeyError:
-            command = "?"
-        
-        # if word == "とまれ":
-        #     command = "S"
-        # elif word == "すすめ":
-        #     command = "G"
-        # elif word == "もどれ":
-        #     command = "B"
-        # elif word == "みぎ":
-        #     command = "R"
-        # elif word == "ひだり":
-        #     command = "L"
-        # elif word == "いそげ":
-        #     command = "H"
-
-        if command != "":
+            command = commanddict[word] += "#"
             # フォロへコマンド文字列を送信する
-            command += "#"
             print(command)
             uartrx.write(bytearray(command.encode("utf-8")))
+        except KeyError:
 
         recvdata = ""
 
