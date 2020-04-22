@@ -6,7 +6,7 @@ import bluepy
 from bluepy import btle
 
 # サブプロセスでJuliusをmoduleモードで起動する
-p = subprocess.Popen("./julius.sh",
+p = subprocess.Popen("julius -C ~/julius/dict-kit/dictation-kit-4.5/command.jconf -module",
                      stdout=subprocess.PIPE, shell=True)
 pid = str(p.pid)
 time.sleep(1)
