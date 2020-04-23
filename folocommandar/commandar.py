@@ -5,7 +5,7 @@ import subprocess
 import bluepy
 from bluepy import btle
 
-p = subprocess.run(["amixer sset Mic 50%"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+p = subprocess.run(["amixer sset Mic 50%"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 print(p.stdout.decode("utf8"))
 
 # サブプロセスでJuliusをmoduleモードで起動する
