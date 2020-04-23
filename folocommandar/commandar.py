@@ -5,6 +5,9 @@ import subprocess
 import bluepy
 from bluepy import btle
 
+p = subprocess.run(["amixer sset Mic 50%"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+print(p.stdout.decode("utf8"))
+
 # サブプロセスでJuliusをmoduleモードで起動する
 p = subprocess.Popen("julius -C ~/julius/dict-kit/dictation-kit-4.5/command.jconf -module",
                      stdout=subprocess.PIPE, shell=True)
