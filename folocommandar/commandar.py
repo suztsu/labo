@@ -18,8 +18,8 @@ print("julius を起動しました")
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
 uuid_uart_service = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 uuid_uart_rx = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
-main_device_addr = "d5:8a:b3:87:c2:22"
-arm_device_addr = "f2:3a:18:6d:83:75"
+main_device_addr = "d5:8a:b3:87:c2:22"  # フォロ本体のmicrobitのデバイスアドレス
+arm_device_addr = "f2:3a:18:6d:83:75"   # 火器管制装置のmicrobitのデバイスアドレス
 main_per = btle.Peripheral(main_device_addr, btle.ADDR_TYPE_RANDOM)
 main_uartsvc = main_per.getServiceByUUID(uuid_uart_service)
 main_uartrx = main_uartsvc.getCharacteristics(uuid_uart_rx)[0]
@@ -43,6 +43,7 @@ try:
         "ひだり": "L",
         "いそげ": "h",
         "ゆっくり": "l",
+        "うて": "f",
     }
 
     while True:
@@ -68,6 +69,10 @@ try:
         print(command)
 
         # フォロへコマンド文字列を送信する
+        uartrx = main_uartrx
+        if command == "f#":
+            uartrx = arm_uartrx
+            
         uartrx.write(bytearray(command.encode("utf-8")))
             
         
