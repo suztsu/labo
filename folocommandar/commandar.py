@@ -18,10 +18,14 @@ print("julius を起動しました")
 # micro:bitとのBluetooth接続情報（LEDサービスを使用）
 uuid_uart_service = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 uuid_uart_rx = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
-device_addr = "d5:8a:b3:87:c2:22"
-per = btle.Peripheral(device_addr, btle.ADDR_TYPE_RANDOM)
-uartsvc = per.getServiceByUUID(uuid_uart_service)
-uartrx = uartsvc.getCharacteristics(uuid_uart_rx)[0]
+main_device_addr = "d5:8a:b3:87:c2:22"
+arm_device_addr = "f2:3a:18:6d:83:75"
+main_per = btle.Peripheral(main_device_addr, btle.ADDR_TYPE_RANDOM)
+main_uartsvc = main_per.getServiceByUUID(uuid_uart_service)
+main_uartrx = main_uartsvc.getCharacteristics(uuid_uart_rx)[0]
+arm_per = btle.Peripheral(arm_device_addr, btle.ADDR_TYPE_RANDOM)
+arm_uartsvc = arm_per.getServiceByUUID(uuid_uart_service)
+arm_uartrx = arm_uartsvc.getCharacteristics(uuid_uart_rx)[0]
 
 # JuliusとのSocket接続を開く
 host = 'localhost'
